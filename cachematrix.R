@@ -21,6 +21,7 @@ makeCacheMatrix <- function(x = matrix()) {
     setInvertedMatrix <- function(invertedMatrix) im <<- invertedMatrix
     getInvertedMatrix <- function() im
 
+    ## True if has an inverted matrix cached
     isCached <- function() !is.null(im)
 
     list(set = set, get = get,
@@ -40,8 +41,11 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
     ## Return a matrix that is the inverse of 'x'
+
+    ## Checks if the special matrix has a cached velue
     if(!x$isCached()) {
-        x$setInvertedMatrix(solve(x$get(), ...))
+        #if not creates the inverted matrix and stores it
+        x$setInvertedMatrix( solve(x$get(), ...) )
     } else {
         message("getting cached data")
     }
